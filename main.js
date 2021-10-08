@@ -49,3 +49,29 @@ $.ajax({
 .error(function(err){
     console.error(err);
 })
+
+//썸네일 클릭시 레이어팝업으로 유튜브 영상 호출하기
+$("body").on("click","#vidGallery article a", function(e){
+    e.preventDefault();
+
+    let vidId = $(this).attr("href");
+
+    $("body")
+        .append(
+            $("<div class='pop'>")
+                .append(
+                    $("<iframe>")
+                        .attr({
+                            src:"https://www.youtube.com/embed/"+vidId,
+                            frameborder : 0,
+                            width: "100%",
+                            height: 600
+                        }),
+                    $("<span>").txt("close")
+                )
+        )
+});
+
+$("body").on("click",".pop span",function(){
+    $(".pop").remove();
+})
