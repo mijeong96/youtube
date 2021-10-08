@@ -16,8 +16,15 @@ $.ajax({
 
     $(items).each(function(index,data){
 
-        // let thumb = data.snippet.thumbnais.high.url;
-        // if(!thumb) thumb = "img/default.jpg"
+        // 본문 텍스트 내용이 100글자를 넘어가면 말줄임표 붙이기
+        let txt = data.snippet.description;
+        let len = txt.length;
+        if(len>200){
+            txt = txt.substr(0, 200) + "..."
+        }
+        
+        let date = data.snippet.publishedAt;
+        date = date.split("T");
         
         $("#vidGallery")
             .append(
@@ -30,8 +37,8 @@ $.ajax({
                         $("<div class='con'>")
                                 .append(
                                     $("<h2>").text(data.snippet.title),
-                                    $("<p>").text(data.snippet.description),
-                                    $("<span>").text(data.snippet.publishedAt)
+                                    $("<p>").text(txt),
+                                    $("<span>").text(date)
                                 )
                     )
 
